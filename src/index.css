@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-main-clr: #f47458;
+  --color-accent-clr: #db4444;
+}
+
+@layer components {
+  .AuthFormStyle {
+    @apply rounded-2xl shadow-2xl w-[30rem] p-10;
+  }
+  .AuthFormHeading {
+    @apply text-4xl font-bold py-4;
+  }
+  .AuthFormInputs {
+    @apply p-2 outline-none bg-red-50 rounded font-medium;
+  }
+  .AuthFormButton {
+    @apply bg-main-clr text-white rounded-3xl w-fit px-5 text-xl self-center py-2 mt-4;
+  }
+
+  .CountDownLaber {
+    @apply absolute -top-4 left-1/2 -translate-x-1/2 text-xs font-light;
+  }
+  .CardOverLay {
+    @apply absolute bottom-0 left-0 right-0 opacity-0 transition-opacity duration-200 text-white text-center bg-black p-2 rounded-bl rounded-br cursor-pointer;
+  }
+  .themeButton {
+    @apply bg-accent-clr text-center text-white w-fit  font-light rounded cursor-pointer  hover:bg-main-clr transition-colors duration-300;
+  }
+  .CounterIcon {
+    @apply absolute bg-main-clr rounded-full text-white text-[10px] w-4 h-4 text-center -top-1 -right-1;
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", "sans-serif";
+}
+
+.active {
+  border-bottom: 2px solid black;
+  font-weight: 500;
+}
+
+.nav-link:not(.active):hover {
+  color: rgba(0, 0, 0, 0.69);
+}
+.card:hover .CardOverLay {
+  opacity: 1;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 6px solid black;
+  border-right-color: transparent;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.lazy-image-wrapper {
+  display: block !important;
+}
