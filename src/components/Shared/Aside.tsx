@@ -1,6 +1,5 @@
+import { useEffect, useState } from "react";
 import { getCategory } from "../../Api/CategoryList";
-
-const categories = await getCategory();
 
 const Aside = ({
   onCategorySelect,
@@ -11,6 +10,17 @@ const Aside = ({
   selectedCategory: string;
   isHomepage?: boolean;
 }) => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const data = await getCategory();
+      if (data) setCategories(data);
+    }
+
+    fetchCategories();
+  }, []);
+
   const displayedCategories = isHomepage ? categories.slice(0, 8) : categories;
 
   return (

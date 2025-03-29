@@ -1,6 +1,5 @@
+import { useState, useEffect } from "react";
 import { getCategory } from "../../../Api/CategoryList";
-
-const categories = await getCategory();
 
 const CategoriesList = ({
   onCategorySelect,
@@ -10,13 +9,26 @@ const CategoriesList = ({
   selectedCategory: string;
   isHomepage?: boolean;
 }) => {
+  const [categories, setCategories] = useState<
+    { name: string; slug: string }[]
+  >([]);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const data = await getCategory();
+      if (data) setCategories(data);
+    }
+
+    fetchCategories();
+  }, []);
+
   return (
     <>
       <h3 className="font-semibold text-center py-2 text-xl border-b border-gray-300">
         All Categories
       </h3>
       <ul className="space-y-3 text-xl">
-        {categories.map(({ name, slug }: { name: string; slug: string }) => (
+        {categories.map(({ name, slug }) => (
           <li
             key={slug}
             className={`cursor-pointer ${
@@ -31,4 +43,5 @@ const CategoriesList = ({
     </>
   );
 };
+
 export default CategoriesList;

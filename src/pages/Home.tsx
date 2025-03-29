@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Aside from "../components/Shared/Aside";
 import FlashSaleCountDown from "../components/Home/FlashSaleCountDown";
 import Slider from "../components/Home/Slider";
@@ -13,14 +15,21 @@ import AdImage4 from "../Assests/images/Ad4.png";
 import service1 from "../Assests/images/Services.png";
 import service2 from "../Assests/images/Services (1).png";
 import service3 from "../Assests/images/Services (2).png";
-import { Link, useNavigate } from "react-router-dom";
 import { useCategory } from "../hooks/useCategory";
-
-const products = await getProducts();
 
 const Home = () => {
   const navigate = useNavigate();
   const { setSelectedCategory, selectedCategory } = useCategory();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const data = await getProducts();
+      if (data) setProducts(data);
+    }
+
+    fetchProducts();
+  }, []);
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
@@ -114,10 +123,11 @@ const Home = () => {
         <div className="col-span-12 md:col-span-4 text-center pb-10">
           <img className="mx-auto pb-3" src={service3} alt="Service-Icon" />
           <h4 className="font-bold text-[20px] pb-2">MONEY BACK GUARANTEE</h4>
-          <p className="text-[14px]">We reurn money within 30 days</p>
+          <p className="text-[14px]">We return money within 30 days</p>
         </div>
       </Sections>
     </>
   );
 };
+
 export default Home;
