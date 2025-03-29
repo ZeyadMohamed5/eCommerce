@@ -35,17 +35,25 @@ const ProductPage = () => {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!currentUser) {
-      showNotification("You must be logged in to add items to the cart.");
+      showNotification(
+        "You must be logged in to add items to the cart.",
+        "error"
+      );
       return;
     }
+    showNotification("Added to cart succefully.", "success");
     updateCart(Number(id), quantity);
   };
 
   const handleAddToWhishList = () => {
     if (!currentUser) {
-      showNotification("You must be logged in to add items to the wishlist.");
+      showNotification(
+        "You must be logged in to add items to the wishlist.",
+        "error"
+      );
       return;
     }
+
     updateWishlist(Number(id));
   };
 
