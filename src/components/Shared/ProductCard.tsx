@@ -23,7 +23,10 @@ const ProductCard = ({ products }: ProductCardProps) => {
   const handleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!currentUser) {
-      showNotification("You must be logged in to add items to your wishlist.");
+      showNotification(
+        "You must be logged in to add items to your wishlist.",
+        "error"
+      );
       return;
     }
     updateWishlist(id);
@@ -32,9 +35,13 @@ const ProductCard = ({ products }: ProductCardProps) => {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!currentUser) {
-      showNotification("You must be logged in to add items to the cart.");
+      showNotification(
+        "You must be logged in to add items to your cart.",
+        "error"
+      );
       return;
     }
+    showNotification("Added to cart succefully", "success");
     updateCart(id, 1);
   };
 

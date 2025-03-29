@@ -57,7 +57,8 @@ const Header = () => {
                 isLoggedIn
                   ? navigate("/wishlist")
                   : showNotification(
-                      "You must be logged in to view the wishlist."
+                      "You must be logged in to view the wishlist.",
+                      "error"
                     );
               }}
             >
@@ -73,7 +74,10 @@ const Header = () => {
               onClick={() => {
                 isLoggedIn
                   ? navigate("/cart")
-                  : showNotification("You must be logged in to view the cart.");
+                  : showNotification(
+                      "You must be logged in to view the cart.",
+                      "error"
+                    );
               }}
             >
               <CiShoppingCart size={30} />

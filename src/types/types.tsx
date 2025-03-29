@@ -19,9 +19,12 @@ export interface AuthContextType {
   removeFromCart: (productId: number) => void;
 }
 
+export type NotificationType = "success" | "error";
+
 export interface NotificationContextType {
   message: string | null;
-  showNotification: (msg: string) => void;
+  type: NotificationType;
+  showNotification: (msg: string, type?: NotificationType) => void;
   hideNotification: () => void;
 }
 

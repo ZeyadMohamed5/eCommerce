@@ -4,6 +4,7 @@
 @theme {
   --color-main-clr: #f47458;
   --color-accent-clr: #db4444;
+  --animate-fadeInOut: fadeInDown 0.3s ease-out;
 }
 
 @layer components {
@@ -64,6 +65,17 @@ body {
 @keyframes spin {
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

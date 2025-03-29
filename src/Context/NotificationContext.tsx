@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode } from "react";
-import { NotificationContextType } from "../types/types";
+import { NotificationContextType, NotificationType } from "../types/types";
 import Notification from "../components/Shared/Notification";
 
 export const NotificationContext = createContext<
@@ -7,17 +7,29 @@ export const NotificationContext = createContext<
 >(undefined);
 
 export const NotificationProvider = ({ children }: { children: ReactNode }) => {
-  const [message, setMessage] = useState<string | null>(null);
+  const [notification, setNotification] = useState<{
+    message: string | null;
+    type: NotificationType;
+  }>({ message: null, type: "error" });
 
-  const showNotification = (msg: string) => setMessage(msg);
-  const hideNotification = () => setMessage(null);
+  const showNotification = (msg: string, type: NotificationType = "success") =>
+    setNotification({ message: msg, type });
+
+  const hideNotification = () =>
+    setNotification({ message: null, type: "success" });
 
   return (
     <NotificationContext.Provider
-      value={{ message, showNotification, hideNotification }}
+      value={{ ...notification, showNotification, hideNotification }}
     >
       {children}
-      {message && <Notification message={message} onClose={hideNotification} />}
+      {notification.message && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={hideNotification}
+        />
+      )}
     </NotificationContext.Provider>
   );
 };
