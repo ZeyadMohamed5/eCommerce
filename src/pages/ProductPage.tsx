@@ -19,6 +19,9 @@ const ProductPage = () => {
   const [randomReviewCount, setRandomReviewCount] = useState(0);
   const { showNotification } = useNotification();
   const [loaded, setLoaded] = useState(false);
+  const [productImage, setProductImage] = useState(
+    product?.images?.[0] || undefined
+  );
 
   useEffect(() => {
     setRandomReviewCount(Math.round(Math.random() * 100));
@@ -31,6 +34,11 @@ const ProductPage = () => {
     }
     fetchProduct();
   }, [id]);
+  useEffect(() => {
+    if (product?.images?.length) {
+      setProductImage(product.images[0]);
+    }
+  }, [product]);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -53,7 +61,6 @@ const ProductPage = () => {
       );
       return;
     }
-
     updateWishlist(Number(id));
   };
 
@@ -71,10 +78,13 @@ const ProductPage = () => {
         {images.map((image: string, i: number) => (
           <LazyLoadImage
             key={i}
+            onClick={() => setProductImage(image)}
             src={image}
             alt={`image of ${title}`}
             effect="opacity"
-            className="bg-gray-50 w-full col-span-4"
+            className={`bg-gray-50 w-full col-span-4 transition-all duration-100  ${
+              productImage === image ? "border-1 border-blue-200" : ""
+            }`}
           />
         ))}
       </div>
@@ -84,7 +94,7 @@ const ProductPage = () => {
             <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
           )}
           <LazyLoadImage
-            src={images[0]}
+            src={productImage}
             alt={title}
             effect="opacity"
             afterLoad={() => setLoaded(true)}
@@ -96,10 +106,13 @@ const ProductPage = () => {
         <div key={i} className="col-span-4 md:hidden">
           <LazyLoadImage
             key={i}
+            onClick={() => setProductImage(image)}
             src={image}
             alt={`image of ${title}`}
             effect="opacity"
-            className="bg-gray-50 w-full md:hidden"
+            className={`bg-gray-50 w-full cursor-pointer transition-all duration-200  md:hidden ${
+              productImage === image ? "border-1 border-blue-200" : ""
+            } `}
           />
         </div>
       ))}
