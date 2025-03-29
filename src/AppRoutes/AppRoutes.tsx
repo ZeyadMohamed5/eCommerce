@@ -14,7 +14,7 @@ import AboutPage from "../pages/AboutPage";
 
 const AppRoutes = () => {
   return (
-    <Router>
+    <Router basename="/eCommerce">
       <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
