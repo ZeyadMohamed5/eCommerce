@@ -12,8 +12,8 @@ const CheckOutPage = () => {
   }
 
   return (
-    <section className="min-h-screen place-content-center">
-      <div className="max-w-[40rem] mx-auto border-2 text-2xl border-gray-300 shadow-2xl py-10 px-5 text-center">
+    <section className="min-h-[80vh] place-content-center">
+      <div className="max-w-[33rem] mx-auto border-2 text-2xl border-gray-300 shadow-2xl py-10 px-5 text-center">
         <div className="flex flex-col gap-5 justify-center items-center">
           <IoMdCheckmarkCircle className="text-green-500" size={100} />
           <span className="font-semibold text-3xl">Shipping!</span>

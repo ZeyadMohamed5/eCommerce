@@ -32,7 +32,7 @@ const AllProducts = () => {
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
   return (
-    <section className="grid grid-cols-12">
+    <section className="grid grid-cols-12 min-h-screen">
       <div className="hidden md:col-span-2 md:block pb-6">
         <Aside
           onCategorySelect={handleCategoryChange}
