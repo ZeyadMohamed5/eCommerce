@@ -17,6 +17,7 @@ export interface AuthContextType {
   updateWishlist: (productId: number) => void;
   updateCart: (productId: number, quantity: number) => void;
   removeFromCart: (productId: number) => void;
+  clearCart: () => void;
 }
 
 export type NotificationType = "success" | "error";
@@ -36,6 +37,7 @@ export const defaultAuthContext: AuthContextType = {
   updateWishlist: () => {},
   updateCart: () => {},
   removeFromCart: () => {},
+  clearCart: () => {},
 };
 
 export interface RenderListProps<T> {

@@ -105,6 +105,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setCurrentUser(updatedUser);
     }
   };
+  const clearCart = () => {
+    if (currentUser) {
+      const updatedUser = {
+        ...currentUser,
+        cart: [],
+      };
+      setCurrentUser(updatedUser);
+    }
+  };
 
   return (
     <AuthContext.Provider
@@ -116,6 +125,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         updateWishlist,
         updateCart,
         removeFromCart,
+        clearCart,
       }}
     >
       {children}

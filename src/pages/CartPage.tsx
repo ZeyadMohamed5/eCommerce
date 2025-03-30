@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { getProductById } from "../Api/Products";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 
 const CartPage = () => {
-  const { currentUser, updateCart, removeFromCart } = useAuth();
+  const { currentUser, updateCart, removeFromCart, clearCart } = useAuth();
   const [cartItems, setCartItems] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -27,6 +28,12 @@ const CartPage = () => {
 
     fetchCartItems();
   }, [currentUser?.cart]);
+
+  const handleProceedToCheckout = () => {
+    navigate("/checkout", { state: { fromCart: true } });
+    clearCart();
+    setCartItems([]);
+  };
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -151,7 +158,14 @@ const CartPage = () => {
             <p>Total:</p>
             <p>{totalPrice.toFixed(2)}$</p>
           </div>
-          <button className="themeButton px-3 py-3">Procced to checkout</button>
+          <button
+            onClick={handleProceedToCheckout}
+            className="themeButton px-3 py-3
+            disabled:bg-gray-400 "
+            disabled={!cartItems.length}
+          >
+            Procced to checkout
+          </button>
         </div>
       </div>
     </div>

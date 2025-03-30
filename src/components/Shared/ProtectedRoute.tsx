@@ -14,7 +14,10 @@ const ProtectedRoute = () => {
 
     return (
       <>
-        {showNotification("You must be logged in to navigate to this page")}{" "}
+        {showNotification(
+          "You must be logged in to navigate to this page",
+          "error"
+        )}
         <Navigate to="/" replace />;
       </>
     );

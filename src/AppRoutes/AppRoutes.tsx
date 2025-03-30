@@ -11,6 +11,7 @@ import ProtectedRoute from "../components/Shared/ProtectedRoute";
 import WishListPage from "../pages/WishListPage";
 import SearchResultPage from "../pages/SearchResultPage";
 import AboutPage from "../pages/AboutPage";
+import CheckOutPage from "../pages/CheckOutPage";
 
 const AppRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const AppRoutes = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckOutPage />} />
             <Route path="/wishlist" element={<WishListPage />} />
           </Route>
         </Route>
