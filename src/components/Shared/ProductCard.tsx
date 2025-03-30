@@ -105,7 +105,7 @@ const ProductCard = ({ products }: ProductCardProps) => {
 
         {discount > 0 ? (
           <s className="text-gray-400 text-sm">
-            ${Math.round(price * discount)}
+            ${Math.round(price / (1 - discount / 100))}
           </s>
         ) : (
           ""
