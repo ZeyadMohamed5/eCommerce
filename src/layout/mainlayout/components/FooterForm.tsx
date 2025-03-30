@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import emailjs from "emailjs-com";
+import { useNotification } from "../../../hooks/useNotification";
 
 const EMAIL_LIMIT = 2;
 const STORAGE_KEY = "email_send_count";
@@ -10,6 +11,7 @@ const FooterForm = () => {
   const [email, setEmail] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [emailCount, setEmailCount] = useState(0);
+  const { showNotification } = useNotification();
 
   useEffect(() => {
     const storedCount = localStorage.getItem(STORAGE_KEY);
@@ -33,13 +35,21 @@ const FooterForm = () => {
       );
     }
   }, []);
+
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email) return;
+    if (!email) {
+      showNotification("Enter valid mail please.", "error");
+      return;
+    }
 
     if (emailCount >= EMAIL_LIMIT) {
-      alert("You've reached the daily email limit. Try again tomorrow!");
+      showNotification(
+        "You've reached the daily email limit. Try again tomorrow!",
+        "error"
+      );
+      showNotification("Email Sent!", "success");
       return;
     }
 
