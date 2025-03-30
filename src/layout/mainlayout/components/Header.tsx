@@ -1,7 +1,7 @@
 import { CiHeart, CiShoppingCart, CiUser } from "react-icons/ci";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import { useNotification } from "../../../hooks/useNotification";
 import SearchForm from "./SearchForm";
@@ -13,10 +13,23 @@ const Header = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(!!currentUser);
   const [logMenu, setLogMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setIsLoggedIn(!!currentUser);
   }, [currentUser]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setLogMenu(false);
+      }
+    };
+    document.body.addEventListener("click", handleClickOutside);
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const cartCount =
     currentUser?.cart.reduce((total, item) => total + item.quantity, 0) || 0;
@@ -87,7 +100,7 @@ const Header = () => {
             </button>
           </div>
           {isLoggedIn && (
-            <div className="relative">
+            <div ref={menuRef} className="relative USER">
               <CiUser onClick={() => setLogMenu(!logMenu)} size={30} />
               {logMenu && (
                 <div className="absolute w-25 h-8 bg-white shadow-md z-10 text-center bottom bottom-0 right-0 translate-y-10 translate-x-8 rounded ">
