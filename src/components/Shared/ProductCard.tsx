@@ -20,6 +20,8 @@ const ProductCard = ({ products }: ProductCardProps) => {
 
   const { title, price, rating, discountPercentage, thumbnail, id } = products;
 
+  let discount = Math.round(discountPercentage);
+
   const handleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!currentUser) {
@@ -66,25 +68,32 @@ const ProductCard = ({ products }: ProductCardProps) => {
           afterLoad={() => setLoaded(true)}
         />
 
-        <div className="absolute inset-0 flex justify-between p-3">
-          <span className="bg-accent-clr rounded h-fit text-white font-extralight text-[14px] px-2 py-1">
-            {Math.round(discountPercentage)}%
-          </span>
-          <div className="flex flex-col gap-2">
-            <span className="cursor-pointer" onClick={handleWishlist}>
-              {currentUser?.wishlist.includes(id) ? (
-                <HiHeart
-                  className="bg-white rounded-full p-1 transition-colors duration-200 text-red-500"
-                  size={35}
-                />
-              ) : (
-                <HiOutlineHeart
-                  className="bg-white rounded-full p-1 transition-colors duration-200"
-                  size={35}
-                />
-              )}
+        <div
+          className={`absolute inset-0 flex p-3 ${
+            discount > 0 ? "justify-between" : "justify-end"
+          }`}
+        >
+          {discount > 0 ? (
+            <span className="bg-accent-clr rounded h-fit text-white font-extralight text-[14px] px-2 py-1">
+              {discount}%
             </span>
-          </div>
+          ) : (
+            ""
+          )}
+
+          <span className="cursor-pointer " onClick={handleWishlist}>
+            {currentUser?.wishlist.includes(id) ? (
+              <HiHeart
+                className="bg-white rounded-full p-1 transition-colors duration-200 text-red-500"
+                size={35}
+              />
+            ) : (
+              <HiOutlineHeart
+                className="bg-white rounded-full p-1 transition-colors duration-200"
+                size={35}
+              />
+            )}
+          </span>
         </div>
         <div onClick={handleAddToCart} className="CardOverLay">
           Add To Cart
@@ -94,9 +103,9 @@ const ProductCard = ({ products }: ProductCardProps) => {
         <h2 className="py-1">{title}</h2>
         <h2 className="text-main-clr font-semibold">${price}</h2>
 
-        {Math.round(discountPercentage) > 0 ? (
+        {discount > 0 ? (
           <s className="text-gray-400 text-sm">
-            ${Math.round(price * Math.round(discountPercentage))}
+            ${Math.round(price * discount)}
           </s>
         ) : (
           ""
