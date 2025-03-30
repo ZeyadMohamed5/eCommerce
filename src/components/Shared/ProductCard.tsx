@@ -92,7 +92,15 @@ const ProductCard = ({ products }: ProductCardProps) => {
       </div>
       <div className="text-center">
         <h2 className="py-1">{title}</h2>
-        <h2 className="text-main-clr">${price}</h2>
+        <h2 className="text-main-clr font-semibold">${price}</h2>
+
+        {Math.round(discountPercentage) > 0 ? (
+          <s className="text-gray-400 text-sm">
+            ${Math.round(price * Math.round(discountPercentage))}
+          </s>
+        ) : (
+          ""
+        )}
       </div>
       <div className="flex gap-1 items-center justify-center">
         <div className="flex">
