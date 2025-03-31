@@ -29,6 +29,12 @@ export interface NotificationContextType {
   hideNotification: () => void;
 }
 
+export interface NotificationProps {
+  message: string;
+  onClose: () => void;
+  type: string;
+}
+
 export const defaultAuthContext: AuthContextType = {
   currentUser: null,
   signUp: () => {},
@@ -42,9 +48,11 @@ export const defaultAuthContext: AuthContextType = {
 
 export interface RenderListProps<T> {
   data: T[];
-  resourceName: string;
-  ItemComponent: React.ComponentType<{ [key: string]: T }>;
+  resourceName: keyof T; 
+  ItemComponent: React.ComponentType<{ [key in keyof T]: T }>;
+  limit?: number;
 }
+
 export interface ProductCardProps {
   products: Product;
 }
@@ -79,4 +87,10 @@ export interface Product {
 export interface CategoryContextType {
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
+}
+
+export interface AsideProps {
+  onCategorySelect: (slug: string) => void;
+  selectedCategory: string;
+  isHomepage?: boolean;
 }

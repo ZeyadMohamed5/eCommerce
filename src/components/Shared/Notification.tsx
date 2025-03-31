@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { NotificationProps } from "../../types/types";
 
-const Notification = ({
-  message,
-  onClose,
-  type,
-}: {
-  message: string;
-  onClose: () => void;
-  type: string;
-}) => {
+const Notification = ({ message, onClose, type }: NotificationProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

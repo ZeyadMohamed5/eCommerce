@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { getCategory } from "../../Api/CategoryList";
+import { AsideProps } from "../../types/types";
 
 const Aside = ({
   onCategorySelect,
   selectedCategory,
   isHomepage = false,
-}: {
-  onCategorySelect: (slug: string) => void;
-  selectedCategory: string;
-  isHomepage?: boolean;
-}) => {
+}: AsideProps) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
