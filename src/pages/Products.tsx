@@ -44,11 +44,7 @@ const AllProducts = () => {
           <Spinner />
         ) : (
           <div className="grid grid-cols-12 gap-2">
-            <RenderList
-              data={products}
-              resourceName="products"
-              ItemComponent={ProductCard}
-            />
+            <RenderList data={products} ItemComponent={ProductCard} />
           </div>
         )}
         {!loading && (

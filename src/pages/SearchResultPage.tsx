@@ -35,11 +35,7 @@ const SearchResultPage = () => {
         <Spinner />
       ) : results.length > 0 ? (
         <div className="grid grid-cols-12 gap-2">
-          <RenderList
-            data={results}
-            resourceName="products"
-            ItemComponent={ProductCard}
-          />
+          <RenderList data={results} ItemComponent={ProductCard} />
         </div>
       ) : (
         <p className="text-center font-light text-gray-600 py-15 min-h-[300px]">
