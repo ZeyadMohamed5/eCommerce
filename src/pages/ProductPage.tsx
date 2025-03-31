@@ -69,8 +69,16 @@ const ProductPage = () => {
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
   if (!product) return <Spinner />;
-  const { title, price, description, images, rating, availabilityStatus } =
-    product;
+  const {
+    title,
+    price,
+    discountPercentage,
+    description,
+    images,
+    rating,
+    availabilityStatus,
+  } = product;
+  let discount = Math.round(discountPercentage);
 
   return (
     <div className="grid grid-cols-12 space-x-2 space-y-2 py-10 md:py-20">
@@ -130,6 +138,13 @@ const ProductPage = () => {
           </div>
           <p className="py-1 font-bold">{availabilityStatus}</p>
           <p className="text-2xl font-light">${price}</p>
+          {discount > 0 ? (
+            <s className="text-gray-400">
+              ${Math.round(price / (1 - discount / 100))}
+            </s>
+          ) : (
+            ""
+          )}
           <p className="text-black pt-4">{description}</p>
         </div>
         <form className="py-4 flex justify-between items-center flex-wrap gap-2">
