@@ -1,18 +1,14 @@
-import { RenderListProps } from "../../types/types";
+import { Product, RenderListProps } from "../../types/types";
 
-const RenderList = <T,>({
+const RenderList = <T extends Product>({
   data,
-  resourceName,
   ItemComponent,
   limit,
 }: RenderListProps<T>) => {
   return (
     <>
-      {data.slice(0, limit ?? data.length).map((item) => (
-        <ItemComponent
-          key={(item as any).id}
-          {...({ [resourceName]: item } as any)}
-        />
+      {data.slice(0, limit ?? data.length).map((product) => (
+        <ItemComponent key={product.id} product={product} />
       ))}
     </>
   );

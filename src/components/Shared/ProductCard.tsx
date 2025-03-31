@@ -3,12 +3,12 @@ import { useAuth } from "../../hooks/useAuth";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ProductCardProps } from "../../types/types";
+import { Product } from "../../types/types";
 import { useNotification } from "../../hooks/useNotification";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/opacity.css";
 
-const ProductCard = ({ products }: ProductCardProps) => {
+const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const { updateCart, updateWishlist, currentUser } = useAuth();
   const [randomReviewCount, setRandomReviewCount] = useState(0);
   const { showNotification } = useNotification();
@@ -18,7 +18,9 @@ const ProductCard = ({ products }: ProductCardProps) => {
     setRandomReviewCount(Math.round(Math.random() * 100));
   }, []);
 
-  const { title, price, rating, discountPercentage, thumbnail, id } = products;
+  if (!product) return null;
+
+  const { title, price, rating, discountPercentage, thumbnail, id } = product;
 
   let discount = Math.round(discountPercentage);
 

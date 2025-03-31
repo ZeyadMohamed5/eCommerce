@@ -48,14 +48,17 @@ export const defaultAuthContext: AuthContextType = {
 
 export interface RenderListProps<T> {
   data: T[];
-  resourceName: keyof T; 
-  ItemComponent: React.ComponentType<{ [key in keyof T]: T }>;
+  ItemComponent: React.ComponentType<{ product: T }>;
   limit?: number;
 }
 
-export interface ProductCardProps {
-  products: Product;
-}
+export type ProductCardProps<T> = {
+  product: T;
+};
+
+export type Products = {
+  products: Product[];
+};
 
 export interface TimeLeft {
   days: number;
@@ -71,7 +74,7 @@ export interface Section {
   children: React.ReactNode;
 }
 
-export interface Product {
+export type Product = {
   id: number;
   rating: number;
   price: number;
@@ -82,7 +85,7 @@ export interface Product {
   images: string[];
   thumbnail: string;
   availabilityStatus: string;
-}
+};
 
 export interface CategoryContextType {
   selectedCategory: string;

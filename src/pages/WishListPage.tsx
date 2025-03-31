@@ -20,7 +20,6 @@ const WishListPage = () => {
         <div className="grid grid-cols-12 gap-2">
           <RenderList
             data={products}
-            resourceName="products"
             ItemComponent={ProductCard}
           />
         </div>

@@ -16,11 +16,12 @@ import service1 from "../Assests/images/Services.png";
 import service2 from "../Assests/images/Services (1).png";
 import service3 from "../Assests/images/Services (2).png";
 import { useCategory } from "../hooks/useCategory";
+import { Product } from "../types/types";
 
 const Home = () => {
   const navigate = useNavigate();
   const { setSelectedCategory, selectedCategory } = useCategory();
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -57,7 +58,6 @@ const Home = () => {
       >
         <RenderList
           data={products}
-          resourceName="products"
           ItemComponent={ProductCard}
           limit={4}
         />
@@ -68,7 +68,6 @@ const Home = () => {
       <Sections label="This Month" title="Best Selling Products">
         <RenderList
           data={products}
-          resourceName="products"
           ItemComponent={ProductCard}
           limit={4}
         />
@@ -79,7 +78,6 @@ const Home = () => {
       <Sections label="Our Products" title="Explore Our Products">
         <RenderList
           data={products}
-          resourceName="products"
           ItemComponent={ProductCard}
           limit={8}
         />
