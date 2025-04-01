@@ -21,9 +21,7 @@ const ProductPage = () => {
   const [randomReviewCount, setRandomReviewCount] = useState(0);
   const { showNotification } = useNotification();
   const [loaded, setLoaded] = useState(false);
-  const [productImage, setProductImage] = useState(
-    product?.images?.[0] || undefined
-  );
+  const [productImage, setProductImage] = useState("");
 
   useEffect(() => {
     setRandomReviewCount(Math.round(Math.random() * 100));
@@ -38,6 +36,7 @@ const ProductPage = () => {
           throw new Error("Product not found");
         }
         setProduct(data);
+        setProductImage(data.images?.[0] || "");
       } catch (err) {
         setError("Failed to fetch product. Please try again later.");
       }
@@ -72,6 +71,7 @@ const ProductPage = () => {
   const increaseQuantity = () => setQuantity((prev) => prev + 1);
   const decreaseQuantity = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
   if (error) return <PageNotFound error={error} />;
 
   if (!product) return <Spinner />;
