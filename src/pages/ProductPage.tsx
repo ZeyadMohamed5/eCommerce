@@ -10,11 +10,13 @@ import Spinner from "../components/Shared/Spinner";
 import { useNotification } from "../hooks/useNotification";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/opacity.css";
+import PageNotFound from "./PageNotFound";
 
 const ProductPage = () => {
   const { currentUser, updateWishlist, updateCart } = useAuth();
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
+  const [error, setError] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [randomReviewCount, setRandomReviewCount] = useState(0);
   const { showNotification } = useNotification();
@@ -29,16 +31,19 @@ const ProductPage = () => {
 
   useEffect(() => {
     async function fetchProduct() {
-      const data = await getProductById(id);
-      setProduct(data);
+      try {
+        setError("");
+        const data = await getProductById(id);
+        if (!data) {
+          throw new Error("Product not found");
+        }
+        setProduct(data);
+      } catch (err) {
+        setError("Failed to fetch product. Please try again later.");
+      }
     }
     fetchProduct();
   }, [id]);
-  useEffect(() => {
-    if (product?.images?.length) {
-      setProductImage(product.images[0]);
-    }
-  }, [product]);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -67,8 +72,10 @@ const ProductPage = () => {
   const increaseQuantity = () => setQuantity((prev) => prev + 1);
   const decreaseQuantity = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  if (error) return <PageNotFound error={error} />;
 
   if (!product) return <Spinner />;
+
   const {
     title,
     price,

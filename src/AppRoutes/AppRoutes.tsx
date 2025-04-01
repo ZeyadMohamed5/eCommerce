@@ -12,6 +12,7 @@ import WishListPage from "../pages/WishListPage";
 import SearchResultPage from "../pages/SearchResultPage";
 import AboutPage from "../pages/AboutPage";
 import CheckOutPage from "../pages/CheckOutPage";
+import PageNotFound from "../pages/PageNotFound";
 
 const AppRoutes = () => {
   return (
@@ -29,6 +30,7 @@ const AppRoutes = () => {
             <Route path="/checkout" element={<CheckOutPage />} />
             <Route path="/wishlist" element={<WishListPage />} />
           </Route>
+          <Route path="*" element={<PageNotFound />} />
         </Route>
 
         <Route element={<AuthLayout />}>

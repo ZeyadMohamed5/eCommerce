@@ -15,7 +15,6 @@ const SearchResultPage = () => {
   useEffect(() => {
     if (query) {
       setLoading(true);
-
       getBySearch(query)
         .then((data) => {
           const { products } = data;
